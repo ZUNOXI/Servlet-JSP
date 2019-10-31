@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원등록</title>
+<style type="text/css">
+body{
+ width : 800px;
+ margin : 0 auto;
+}
+
+table{
+	width : 650px;
+	border : 1px solid #000;
+}
+</style>
+<script type="text/javascript">
+/* window.onload = function() {
+	
+} */
+function check() {
+	var uId = pid.value;
+	// 등록전 조건검사
+	if(uId.length < 5){
+		alert("아이디 길이가 맞지 않습니다.");
+		pid.focus();
+		return;
+	}
+	rform.submit();
+}
+</script>
+</head>
+<body>
+	<h1 align="center">회원등록</h1>
+	<form action="main.do?action=registmem" method = "post" id = "rform">
+		<table>
+			<tr><td>아이디: </td><td><input type = "text" name = "pid" id = "pid"></td></tr>
+			<tr><td>이름: </td><td><input type = "text" name = "pname" id = "pname"></td></tr>
+			<tr><td>비번: </td><td><input type = "password" name = "ppw" id = "ppw"></td></tr>
+			<tr><td>주소: </td><td><input type = "text" name = "paddr" id = "paddr"></td></tr>
+			<tr><td>나이: </td><td><input type = "number" name = "page" id = "page"></td></tr>
+			<tr><td>전화번호: </td><td><input type = "tel" name = "ptel" id = "ptel"></td></tr>
+			<tr><td colspan = "2"><input type = "button" value = "등록" onclick = "check()"><input type = "reset" value = "clear"></td></tr>
+		</table>
+	</form>
+</body>
+</html>

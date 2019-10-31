@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>MemberProject</display-name>
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <filter>
+    <display-name>KorCharsetFilter</display-name>
+    <filter-name>KorCharsetFilter</filter-name>
+    <filter-class>edu.ssafy.controller.KorCharsetFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>KorCharsetFilter</filter-name>
+    <url-pattern>/main.do</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>LoginCheckFilter</display-name>
+    <filter-name>LoginCheckFilter</filter-name>
+    <filter-class>edu.ssafy.controller.LoginCheckFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginCheckFilter</filter-name>
+    <url-pattern>/main.do</url-pattern>
+  </filter-mapping>
+</web-app>

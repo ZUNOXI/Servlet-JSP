@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<style type="text/css">
+body{
+width:300px;
+margin: 0 auto;
+}
+table{
+border:1px solid red;
+}
+</style>
+<script type="text/javascript">
+/* window.onload = function() {
+	
+} */
+function check() {
+	var uId = pid.value;
+	// 등록전 조건검사
+	if(uId.length < 5){
+		alert("아이디 길이가 맞지 않습니다.");
+		pid.focus();
+		return;
+	}
+	rform.submit();
+}
+</script>
+<body>
+    <h1>Login Page</h1>
+    <form action= "main.do?action=meminfo" method = "post" id = "rform">
+	    <table>
+	    <tr>
+		    <td>id:</td>
+		    <td><input type="text" name = "pid" id = "pid"></td>
+	    </tr>
+		    <tr>
+		    <td>passwd:</td>
+		    <td><input type="password" name = "ppw" id = "ppw"></td>
+	    </tr>
+	    <tr>
+	    <td colspan="2"><input type="button" value ="Login" onclick = "check()">
+	    <input type="reset" value ="clear"></td>
+	    </tr>
+	    </table>
+	    <a href="join.html">회원가입</a>
+	    </form>
+</body>
+</html>

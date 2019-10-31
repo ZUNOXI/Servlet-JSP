@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<title>WHAT WE PROVIDE</title>
+<style>
+.ml-auto .dropdown-menu {
+	left: auto !important;
+	right: 0px;
+}
+
+#test_btn1 {
+	margin-right: 0px;
+}
+
+#test_btn2 {
+	margin-left: -2px;
+}
+
+#test_btn2, #test_btn1 {
+	border: 0px black;
+	background-color: rgba(0, 0, 0, 0);
+	color: white;
+	padding: 5px;
+}
+
+#test_btn3, #test_btn4 {
+	background-color: rgba(0, 0, 0, 0);
+	color: black;
+	padding: 5px;
+}
+
+.the-legend {
+	border-style: none;
+	border-width: 0;
+	font-size: 14px;
+	line-height: 20px;
+	margin-bottom: 0;
+	width: auto;
+	padding: 0 10px;
+	border: 1px solid #e0e0e0;
+}
+
+.the-fieldset {
+	border: 1px solid #e0e0e0;
+	padding: 10px;
+}
+
+legend.scheduler-border {
+	width: inherit; /* Or auto */
+	padding: 0 10px; /* To give a bit of padding on the left and right */
+	border-bottom: none;
+}
+
+body>div>div>div>ul ul { /*서브메뉴 선택시 서브메뉴화면  */
+	display: none;
+	background: white;
+	box-shadow: 1px 1px 5px black;
+}
+
+#modal {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+#modal h2 {
+	margin: 0;
+	 
+	 
+}
+
+#modal button {
+	display: inline-block;
+	width: 100px;
+	margin-left: calc(100% - 100px - 10px);
+}
+
+#modal .modal_content {
+	width: 300px;
+	margin: 100px auto;
+	padding: 20px 10px;
+	background: #fff;
+	border: 2px solid #666;
+}
+
+#modal .modal_layer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: -1;
+}
+
+#dropdown-box {
+	dispaly: none;
+}
+
+body>nav>div>ul>div>ul{
+	background-color : black;
+}
+.card-text {
+	display: inline-block;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+	line-height: 1.2;
+	height: 100%;
+	text-align: left;
+	word-wrap: break-word;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+body>nav>div>ul>div>ul{
+	background-color : black;
+}
+</style>
+<script type="text/javascript">
+$.ajax({
+    url: 'foodInfo.xml',
+    type: 'get',
+    dataType: 'xml',
+    success: function (xml) {
+        // 각 food 태그마다 데이터를 불러와 변수에 저장
+        $('food', xml).each(function () {
+            var code = $(this).find('code').text();
+            var name = $(this).find('name').text();
+            var maker = $(this).find('maker').text();
+            var material = $(this).find('material').text();
+            var img = $(this).find('image').text();
+
+            /* $('#results').append("<div class='info_container' style='float: left'><div class='row'><div class='col-md-6' style='height: auto; width: auto; max-width: 250px; max-height: 250px;'><img src='./" +img+"' class='img-fluid'><div class='overlay_container bg-dark'></div></div><div class='col-5'><h3>"+name+"</h3><div class='separator-2'></div><div>"+material+"</div><div class='separator-2'></div><div class='btn-group' role='group'><button type='button' class='btn btn-default btn-sm'>추가</button><button type='button' class='btn btn-default btn-sm'>찜</button></div></div></div></div>"); */
+            $('#results').append("<div class='container-fluid' style='width: 70%;' id='result'><div class='row'><div class='main col-12'><div class='card mb-4' style='margin-left: 12%; margin-right: 12%;'><div class='row no-gutters'><div class='col-md-4'><img src=" +img+" class='card-img' alt="+name+"></div><div class='col-md-8'><div class='card-body'><h5 class='card-title'><a href='./food_info_page.html?"+name+".html'>"+name+"</a></h5><div class='separator-2'></div><p class='card-text'>"+material+"</p><div class='separator-2'></div><div class='btn-group' role='group'><button type='button' class='btn btn-default btn-sm'>추가</button><button type='button' class='btn btn-default btn-sm'>찜</button></div></div></div></div></div></div></div></div>");
+            
+        });
+    }
+});
+
+</script>
+
+</head>
+<body>
+	<!-- head nav bar for login -->
+	<nav
+		class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
+		<div class="collapse navbar-collapse flex-grow-0"
+			id="navbarSupportedContent">
+			<ul class="navbar-nav text-right">
+				<div class="btn-group">
+					<a href="#">
+						<button id="test_btn1" style="cursor: pointer">
+							<i class="fa fa-user form-control-feedback"></i> Sign up
+						</button>
+					</a>
+				</div>
+				<div class="btn-group">
+					<a href="#">
+						<button id="test_btn2" class = "dropdown-button" onclick="myFunction()" style="cursor: pointer">
+							<i class="fa fa-lock form-control-feedback"></i> Login
+						</button>
+					</a>
+					<ul id="dropdown-box"
+						class="dropdown-menu dropdown-menu-right dropdown-animation"
+						aria-labelledby="header-top-drop-2">
+						<li>
+							<form class="login-form margin-clear" action="member.do"
+								method="post">
+								<div class="form-group">
+									<label class="control-label">&nbsp;&nbsp;아이디</label> 
+									<input type="text" class="form-control" placeholder="" name="id"> 
+								</div>
+								<div class="form-group">
+									<label class="control-label">&nbsp;&nbsp;비밀번호</label> 
+									<input type="password" class="form-control" placeholder="PW" name="pw">
+								</div>
+								<ul class='pagination'>
+									<li>
+										<input type="hidden" name="action" value="login">
+										<input type="submit" value="로그인">
+										</li>
+								</ul>
+								<br>
+								<ul class='pagination'>
+									<li><button type="button" onclick="location.href='비밀번호찾기.html' " 
+									class="btn btn-gray btn-sm" style = 'margin: auto;width: 148%;'>
+									비밀번호 찾기</button></li>
+								</ul>
+							</form>
+						</li>
+					</ul>
+				</div>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="modal" style='display: none'>
+		<div id="register">
+			<div class="container"
+				style="width: 100%; padding-top: 10px; border-radius: 22px 22px;">
+				<article class="container bg-light"
+					style="max-width: 640px; border-radius: 10px 10px;">
+					<div class="page-header">
+						<div class="col-md-6 col-md-offset-3">
+							<br>
+							<h3>회원가입</h3>
+						</div>
+					</div>
+					<form action="main.do?action=registmem" method = "post" id = "rform">
+					<div class="form-group has-feedback row">
+						<label for="inputName"
+							class="col-md-3 control-label text-md-right col-form-label">아이디
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="puserid" id="puserid"
+								placeholder="" required name="id">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputLastName"
+							class="col-md-3 control-label text-md-right col-form-label">비밀번호
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="ppwd" id="ppwd"
+								placeholder="영문 숫자 포함 6자리 이상" required name="pw">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputUserName"
+							class="col-md-3 control-label text-md-right col-form-label">이름
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="pname" id="pname"
+								placeholder="User Name" required name="name">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputEmail"
+							class="col-md-3 control-label text-md-right col-form-label">주소
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="paddr" id="paddr"
+								placeholder="address" required name="addr">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputPassword"
+							class="col-md-3 control-label text-md-right col-form-label">전화번호
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="pphone" id="pphone"
+								placeholder="010-xxx-xxxx" required name="tel">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputPassword"
+							class="col-md-3 control-label text-md-right col-form-label">알레르기
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<fieldset class="the-fieldset">
+								<legend class="the-legend"> Check</legend>
+								<div class="row">
+									<div class="col-sm-10">
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="대두"> <label
+												class="form-check-label">대두 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="땅콩"> <label
+												class="form-check-label">땅콩 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="우유"> <label
+												class="form-check-label">우유 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="게"> <label
+												class="form-check-label">게</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="새우"> <label
+												class="form-check-label">새우</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="참치"> <label
+												class="form-check-label">참치</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="연어"> <label
+												class="form-check-label">연어</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="쑥"> <label
+												class="form-check-label">쑥 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="소고기"> <label
+												class="form-check-label">소고기</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="닭고기"> <label
+												class="form-check-label">닭고기 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="돼지고기"> <label
+												class="form-check-label">돼지고기</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="복숭아"> <label
+												class="form-check-label">복숭아 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="민들레"> <label
+												class="form-check-label">민들레</label>
+										</div>
+
+										<div class="form-check form-check-inline">
+											<input name="pallergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="계란흰자"> <label
+												class="form-check-label">계란흰자 </label>
+										</div>
+									</div>
+									<br>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="form-group text-center">
+						<button type="submit" id="modal_close_btn" class="btn btn-primary">
+							등록<i class="fa fa-check spaceLeft"></i>
+						</button>
+						<br>
+					</div>
+					</form>
+					<br>
+				</article>
+			</div>
+			<br>
+		</div>
+	</div>
+	<!-- menu nav bar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="./Index.html"><img alt="ssafy"
+			src="./img/header-logo.jpg"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="navbar collapse navbar-collapse"
+			id="navbarSupportedContent">
+			<ul class="nav navbar-nav ml-auto">
+				<li class="nav-item"><a class="nav-link" href="./announce.html">공지사항</a></li> <!-- 미구현 -->
+				<li class="nav-item"><a class="nav-link" href="./lists.html">상품정보</a></li>
+				<li class="nav-item"><a class="nav-link" href="./mosts.html">베스트 섭취 정보</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">내 섭취 정보</a></li> <!-- 미구현 -->
+				<li class="nav-item"><a class="nav-link" href="#">예상 섭취 정보</a> <!-- 미구현 -->
+				</li>
+					<li>
+					<form class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="search"
+							placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0">
+					<span class="fa fa-search"></span></button>
+					</form>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<!-- title -->
+	<div class="jumbotron jumbotron-fluid bg-secondary" style = 'margin-bottom:0%'>
+		<div class="container text-center" style="color:white">
+			<h1>WHAT WE PROVIDE</h1>
+			<div class="seperator"></div>
+			<p>건강한 삶을 위한 먹거리 프로젝트</p>
+		</div>
+	</div>
+	<!-- search bar -->
+	<div class="jumbotron jumbotron-fluid bg-dark">
+		<div class="container bg-dark">
+			<form>
+				<div class="row">
+					<div class="col-md-3">
+						<div class="row">
+						</div>
+						<div class="row">
+							<label style='color : #aaa; margin-left:2%'>검색 조건</label> 
+							<select class="form-control" style='background-color : #555; color : #ddd; margin-left:3%; margin-right:3%'>
+								<option>상품명</option>
+								<option>제조사</option>
+								<option>재료명</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="row">
+							<label style='color : #aaa; margin-left:2%'>검색 단어</label>
+						</div>
+						<div class="row">
+							<div class="col-md-11">
+								<input class="form-control mr-sm-2" type="search"
+									placeholder="Search" aria-label="Search" style='background-color : #555; color : #ddd'>
+							</div>
+							<div class="col-md-1">
+								<button type="button" class="btn btn-outline-secondary my-2 my-sm-0">Search</button>
+							</div>
+						
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="container-fluid bg-3 text-center"></div>
+	
+	<!-- search result section -->
+	<section class='main-container' id="results">
+	
+	</section>
+	
+	
+	
+	<!-- Optional JavaScript -->	
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script
+	  src="https://code.jquery.com/jquery-3.4.1.js"
+	  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+	  crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
+	<script>
+		$(function() {
+			$("#test_btn1").click(function() {
+				$("#modal").fadeIn();
+			});
+
+			$("#modal_close_btn").click(function() {
+				$("#modal").fadeOut();
+			});
+			
+		});
+	</script>
+	<script>
+	function myFunction() {
+		  document.getElementById("dropdown-box").classList.toggle("show");
+		}
+	</script>
+	<!-- footer contacts -->
+   <footer>
+    	<div class="container-fluid bg-03">
+	        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Find Us</h5>
+	        <div class="separator-2"></div>
+	        <ul class="list-unstyled">
+	            <li><img src="./img/maps-and-flags.png" alt="place"> (SSAFY) 서울시 강남구테헤란로 멀티스퀘어</li>
+	            <li><img src="./img/telephone.png" alt="phone number"> 1544-9001</li>
+	            <li><img src="./img/opened.png" alt="e-mail address">admin@ssafy.com</li>
+	        </ul>
+	
+	        <div class="footer-copyright text-center py-3">
+	            Copyright by SSAFY All rights reserved
+	        </div>
+    	</div>
+    </footer>
+</body>
+</html>

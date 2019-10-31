@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function check(){
+	var uid = pid.value;
+	if(uid.length<3 || uid.length > 15){
+		alert("id 길이가 맞지않습니다.");
+		uid.focus();
+		return;
+	}
+	rform.submit();
+}
+</script>
+</head>
+<body>
+	<h1>회원가입</h1>
+	<form action = "join.do" method = "post" id = "rform">
+		<table>
+			<tr>
+				<th>이름</th>
+				<td><input type = "text" name  = "pname"></td>	
+			</tr>
+			<tr>
+				<th>아이디</th>
+				<td><input type = "id" name  = "pid" id = "pid"></td>	
+			</tr>
+			<tr>
+				<th>비밀번호</th>
+				<td><input type = "password" name  = "ppasswd" id = "ppaswd"></td>	
+			</tr>
+			<tr>
+				<td colspan = "2"><input type = "button" value = "가입" onclick ="check()">
+				<input type = "reset" value = "취소">
+				</td>
+ 			</tr>
+		</table>
+	</form>
+</body>
+</html>

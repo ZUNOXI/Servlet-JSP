@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<title>제품 정보</title>
+<style>
+.ml-auto .dropdown-menu {
+	left: auto !important;
+	right: 0px;
+}
+
+#test_btn1 {
+	margin-right: 0px;
+}
+
+#test_btn2 {
+	margin-left: -2px;
+}
+
+#test_btn2, #test_btn1 {
+	border: 0px black;
+	background-color: rgba(0, 0, 0, 0);
+	color: white;
+	padding: 5px;
+}
+
+#test_btn3, #test_btn4 {
+	background-color: rgba(0, 0, 0, 0);
+	color: black;
+	padding: 5px;
+}
+
+.the-legend {
+	border-style: none;
+	border-width: 0;
+	font-size: 14px;
+	line-height: 20px;
+	margin-bottom: 0;
+	width: auto;
+	padding: 0 10px;
+	border: 1px solid #e0e0e0;
+}
+
+.the-fieldset {
+	border: 1px solid #e0e0e0;
+	padding: 10px;
+}
+
+legend.scheduler-border {
+	width: inherit; /* Or auto */
+	padding: 0 10px; /* To give a bit of padding on the left and right */
+	border-bottom: none;
+}
+
+body>div>div>div>ul ul { /*서브메뉴 선택시 서브메뉴화면  */
+	display: none;
+	background: white;
+	box-shadow: 1px 1px 5px black;
+}
+
+#modal {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+#modal h2 {
+	margin: 0;
+	 
+	 
+}
+
+#modal button {
+	display: inline-block;
+	width: 100px;
+	margin-left: calc(100% - 100px - 10px);
+}
+
+#modal .modal_content {
+	width: 300px;
+	margin: 100px auto;
+	padding: 20px 10px;
+	background: #fff;
+	border: 2px solid #666;
+}
+
+#modal .modal_layer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: -1;
+}
+
+#dropdown-box {
+	dispaly: none;
+}
+
+body>nav>div>ul>div>ul{
+	background-color : black;
+}
+.card-text {
+ overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ width: 400px;
+ height: 150px;
+}
+body>nav>div>ul>div>ul{
+	background-color : black;
+}
+</style>
+<script src="js/Chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function(){
+        // this fucntion parsing the foodinfo.xml file
+		$.ajax({
+            url: 'foodInfo.xml',
+            data: 'get',
+            dataType: 'xml',
+            // 일정 갯수의 데이터만 가져오고싶다 ==> for문을 이용한다
+            // 이후 각 페이지별로 배수를 정해, 페이지 (배수 * 범위)로 데이터를 가져오면 될듯
+            success: function (xml) {
+                // 데이터 정제 시작
+                $('food', xml).each(function () {
+                    // xml에서 뽑아온 데이터
+                    var code = $(this).find('code').text();
+                    var name = $(this).find('name').text();
+                    var maker = $(this).find('maker').text();
+                    var material = $(this).find('material').text();
+                    var image = $(this).find('image').text();
+                    $('#Material').text(material);
+                    $('#product_img').attr('src', './' + image);
+                    $('#product_name').text(name);
+                    $('#manufacturer').text(maker);
+                });
+            }
+        });
+        $.ajax({
+            url: 'FoodNutritionInfo.xml',
+            data: 'get',
+            dataType: 'xml',
+            success: function (xml) {
+                $('item', xml).each(function () {
+                    var name = $(this).find('DESC_KOR').text();
+                    if(name == '아카페라아메리카노') {
+	                    var serv_wt = $(this).find('SERVING_WT').text();
+	                    var nutr1 = $(this).find('NUTR_CONT1').text();
+	                    var nutr2 = $(this).find('NUTR_CONT2').text();
+	                    var nutr3 = $(this).find('NUTR_CONT3').text();
+	                    var nutr4 = $(this).find('NUTR_CONT4').text();
+	                    var nutr5 = $(this).find('NUTR_CONT5').text();
+	                    var nutr6 = $(this).find('NUTR_CONT6').text();
+	                    var nutr7 = $(this).find('NUTR_CONT7').text();
+	                    var nutr8 = $(this).find('NUTR_CONT8').text();
+	                    var nutr9 = $(this).find('NUTR_CONT9').text();
+	                    var name = $(this).find('BGN_YEAR').text();
+	                    var maker = $(this).find('ANIMAL_PLANT').text();
+	                    $('#daily_serving').text(serv_wt);
+	                    $('#calorie').text(nutr1);
+	                    $('#carbohydrate').text(nutr2);
+	                    $('#protein').text(nutr3);
+	                    $('#fat').text(nutr4);
+	                    $('#sugars').text(nutr5);
+	                    $('#natrium').text(nutr6);
+	                    $('#cholesterol').text(nutr7);
+	                    $('#saturatedFattyAcids').text(nutr8);
+	                    $('#transFats').text(nutr9);
+	                    var chart_data=[nutr1,nutr2,nutr3,nutr4,nutr5,nutr6,nutr7,nutr8,nutr9];
+                    }
+                    var ctx = document.getElementById("doughnutChart").getContext("2d");
+            		var myChart = new Chart(ctx, {
+            			type : 'doughnut',
+            			data : {
+            				labels : [ "칼로리", "탄수화물", "단백질", "지방", "당류", "나트륨", "콜레스테롤",
+            						"포화 지방산", "트렌스지방" ],
+            				datasets : [ {
+            					label : '# of Votes',
+            					data : chart_data,
+            					backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
+            							'rgba(54, 162, 235, 0.2)',
+            							'rgba(255, 206, 86, 0.2)',
+            							'rgba(75, 192, 192, 0.2)',
+            							'rgba(153, 102, 255, 0.2)',
+            							'rgba(255, 159, 64, 0.2)',
+            							'rgba(255, 153, 255, 0.2)',
+            							'rgba(102, 0, 153, 0.2)', 'rgba(51, 0, 0, 0.2)' ],
+            					borderColor : [ 'rgba(255, 99, 132, 1)',
+            							'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
+            							'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)',
+            							'rgba(255, 159, 64, 1)', 'rgba(255, 153, 255, 1)',
+            							'rgba(102, 0, 153, 1)', 'rgba(51, 0, 0, 1)' ],
+            					borderWidth : 1
+            				} ]
+            			},
+            			options : {
+            				responsive : true
+            			}
+            		});
+                });
+            }
+        });
+	})
+</script>
+</head>
+<body>
+	<nav
+		class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
+		<div class="collapse navbar-collapse flex-grow-0"
+			id="navbarSupportedContent">
+			<ul class="navbar-nav text-right">
+				<div class="btn-group">
+					<a href="#">
+						<button id="test_btn1" style="cursor: pointer">
+							<i class="fa fa-user form-control-feedback"></i> Sign up
+						</button>
+					</a>
+				</div>
+				<div class="btn-group">
+					<a href="#">
+						<button id="test_btn2" class = "dropdown-button" onclick="myFunction()" style="cursor: pointer">
+							<i class="fa fa-lock form-control-feedback"></i> Login
+						</button>
+					</a>
+					<ul id="dropdown-box"
+						class="dropdown-menu dropdown-menu-right dropdown-animation"
+						aria-labelledby="header-top-drop-2">
+						<li>
+							<form class="login-form margin-clear" action="login.do"
+								method="post">
+								<div class="form-group">
+									<label class="control-label">&nbsp;&nbsp;아이디</label> 
+									<input type="text" class="form-control" placeholder="" name="id"> 
+								</div>
+								<div class="form-group">
+									<label class="control-label">&nbsp;&nbsp;비밀번호</label> 
+									<input type="password" class="form-control" placeholder="PW" name="pw">
+								</div>
+								<ul class='pagination'>
+									<li>
+										<button type="button" class="btn btn-gray btn-sm" 
+										style = 'margin: auto;width: 260%;'>
+										로그인</button></li>
+								</ul>
+								<br>
+								<ul class='pagination'>
+									<li><button type="button" onclick="location.href='비밀번호찾기.html' " 
+									class="btn btn-gray btn-sm" style = 'margin: auto;width: 148%;'>
+									비밀번호 찾기</button></li>
+								</ul>
+							</form>
+						</li>
+					</ul>
+				</div>
+			</ul>
+		</div>
+	</nav>
+
+	<div id="modal" style='display: none'>
+		<div id="register">
+			<div class="container"
+				style="width: 100%; padding-top: 10px; border-radius: 22px 22px;">
+				<article class="container bg-light"
+					style="max-width: 640px; border-radius: 10px 10px;">
+					<div class="page-header">
+						<div class="col-md-6 col-md-offset-3">
+							<br>
+							<h3>회원가입</h3>
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputName"
+							class="col-md-3 control-label text-md-right col-form-label">아이디
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="inputName"
+								placeholder="" required name="id">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputLastName"
+							class="col-md-3 control-label text-md-right col-form-label">비밀번호
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="inputLastName"
+								placeholder="영문 숫자 포함 6자리 이상" required name="pw">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputUserName"
+							class="col-md-3 control-label text-md-right col-form-label">이름
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="inputUserName"
+								placeholder="User Name" required name="name">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputEmail"
+							class="col-md-3 control-label text-md-right col-form-label">주소
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="inputEmail"
+								placeholder="address" required name="addr">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputPassword"
+							class="col-md-3 control-label text-md-right col-form-label">전화번호
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" id="inputPassword"
+								placeholder="010-xxx-xxxx" required name="tel">
+						</div>
+					</div>
+					<div class="form-group has-feedback row">
+						<label for="inputPassword"
+							class="col-md-3 control-label text-md-right col-form-label">알레르기
+							<span class="text-danger small">*</span>
+						</label>
+						<div class="col-md-8">
+							<fieldset class="the-fieldset">
+								<legend class="the-legend"> Check</legend>
+								<div class="row">
+									<div class="col-sm-10">
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="대두"> <label
+												class="form-check-label">대두 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="땅콩"> <label
+												class="form-check-label">땅콩 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="우유"> <label
+												class="form-check-label">우유 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="게"> <label
+												class="form-check-label">게</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="새우"> <label
+												class="form-check-label">새우</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="참치"> <label
+												class="form-check-label">참치</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="연어"> <label
+												class="form-check-label">연어</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="쑥"> <label
+												class="form-check-label">쑥 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="소고기"> <label
+												class="form-check-label">소고기</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="닭고기"> <label
+												class="form-check-label">닭고기 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="돼지고기"> <label
+												class="form-check-label">돼지고기</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="복숭아"> <label
+												class="form-check-label">복숭아 </label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="민들레"> <label
+												class="form-check-label">민들레</label>
+										</div>
+
+										<div class="form-check form-check-inline">
+											<input name="allergy" class="form-check-input"
+												id='inlineCheckbox2' type="checkbox" value="계란흰자"> <label
+												class="form-check-label">계란흰자 </label>
+										</div>
+									</div>
+									<br>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+					<div class="form-group text-center">
+						<button type="submit" id="modal_close_btn" class="btn btn-primary">
+							등록<i class="fa fa-check spaceLeft"></i>
+						</button>
+						<br>
+					</div>
+					<br>
+				</article>
+			</div>
+			<br>
+		</div>
+	</div>
+	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="./Index.html"><img alt="ssafy"
+			src="./img/header-logo.jpg"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="navbar collapse navbar-collapse"
+			id="navbarSupportedContent">
+			<ul class="nav navbar-nav ml-auto">
+				<li class="nav-item"><a class="nav-link" href="./announce.html">공지사항</a></li> <!-- 미구현 -->
+				<li class="nav-item"><a class="nav-link" href="./lists.html">상품정보</a></li>
+				<li class="nav-item"><a class="nav-link" href="./mosts.html">베스트 섭취 정보</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">내 섭취 정보</a></li> <!-- 미구현 -->
+				<li class="nav-item"><a class="nav-link" href="#">예상 섭취 정보</a> <!-- 미구현 -->
+				</li>
+					<li>
+					<form class="form-inline my-2 my-lg-0">
+						<input class="form-control mr-sm-2" type="search"
+							placeholder="Search" aria-label="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0">
+					<span class="fa fa-search"></span></button>
+					</form>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<h1 class="page-title text-center">제품 정보</h1>
+	<div width="100" align="center">
+		<img src="./img/shopping-bag.png" width="50" />
+	</div>
+	<div class="container">
+		<div class="table-responsive">
+			<table class="table">
+				<tbody>
+					<tr>
+						<td rowspan="4" width=100><img id=product_img></td>
+						<td width=100>제품명</td>
+						<td id="product_name"></td>
+					</tr>
+					<tr>
+						<td width=100>제조사</td>
+						<td id="manufacturer"></td>
+					</tr>
+					<tr>
+						<td width=100>원재료</td>
+						<td id="Material"></td>
+					</tr>
+					<tr>
+						<td width=100>알레르기 성분</td>
+						<td id="allergy"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<form class="clearfix row grid-space-10">
+			<div class="form-group">
+				<label>Quantity</label> <input type="text" class="form-control"
+					id="qnt" name="qnt" value="1">
+			</div>
+		</form>
+		<div class="product elements-list">
+			<label> </label>
+			<div class="btn-group">
+				<a href="#" onclick="addIntakeFood(20)"
+					class="btn btn-default btn-sm"><i class="fa fa-user pr-2"></i>
+					추가</a> <a href="#" onclick="addIntakePrev(20)"
+					class="btn btn-default btn-sm"><i class="fa fa-user pr-2"></i>
+					찜</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<h4 class="space-top">영양 정보</h4>
+		<div class="row">
+			<div class="col-sm-6">
+				<canvas id="doughnutChart" height="230"></canvas>
+			</div>
+			<div class="col-sm-6">
+				<table class="table">
+					<tbody>
+						<tr>
+							<td width='200'>일일 제공량</td>
+							<td id="daily_serving"></td>
+						</tr>
+						<tr>
+							<td width='200'>칼로리</td>
+							<td id="calorie"></td>
+						</tr>
+						<tr>
+							<td width='200'>탄수화물</td>
+							<td id="carbohydrate"></td>
+						</tr>
+						<tr>
+							<td width='200'>단백질</td>
+							<td id="protein"></td>
+						</tr>
+						<tr>
+							<td width='200'>지방</td>
+							<td id="fat"></td>
+						</tr>
+						<tr>
+							<td width='200'>당류</td>
+							<td id="sugars"></td>
+						</tr>
+						<tr>
+							<td width='200'>나트륨</td>
+							<td id="natrium"></td>
+						</tr>
+						<tr>
+							<td width='200'>콜레스테롤</td>
+							<td id="cholesterol"></td>
+						</tr>
+						<tr>
+							<td width='200'>포화 지방산</td>
+							<td id="saturatedFattyAcids"></td>
+						</tr>
+						<tr>
+							<td width='200'>트렌스지방</td>
+							<td id="transFats"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+	<footer style='clear:both'>
+    	<div class="container-fluid bg-03">
+	        <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Find Us</h5>
+	        <div class="separator-2"></div>
+	        <ul class="list-unstyled">
+	            <li><img src="./img/maps-and-flags.png" alt="place"> (SSAFY) 서울시 강남구테헤란로 멀티스퀘어</li>
+	            <li><img src="./img/telephone.png" alt="phone number"> 1544-9001</li>
+	            <li><img src="./img/opened.png" alt="e-mail address">admin@ssafy.com</li>
+	        </ul>
+	
+	        <div class="footer-copyright text-center py-3">
+	            Copyright by SSAFY All rights reserved
+	        </div>
+    	</div>
+    </footer>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then
+					Bootstrap JS -->
+	
+</body>
+</html>
+
+
+
+

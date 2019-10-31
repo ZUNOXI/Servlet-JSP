@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+<style>
+.ml-auto .dropdown-menu {
+	left: auto !important;
+	right: 0px;
+}
+
+#test_btn1 {
+	margin-right: 0px;
+}
+
+#test_btn2 {
+	margin-left: -2px;
+}
+
+#test_btn2, #test_btn1 {
+	border: 1px solid gray;
+	background-color: rgba(0, 0, 0, 0);
+	color: white;
+	padding: 5px;
+}
+
+#test_btn3, #test_btn4 {
+	background-color: rgba(0, 0, 0, 0);
+	color: black;
+	padding: 5px;
+}
+
+.the-legend {
+	border-style: none;
+	border-width: 0;
+	font-size: 14px;
+	line-height: 20px;
+	margin-bottom: 0;
+	width: auto;
+	padding: 0 10px;
+	border: 1px solid #e0e0e0;
+}
+
+.the-fieldset {
+	border: 1px solid #e0e0e0;
+	padding: 10px;
+}
+
+legend.scheduler-border {
+	width: inherit; /* Or auto */
+	padding: 0 10px; /* To give a bit of padding on the left and right */
+	border-bottom: none;
+}
+
+body>div>div>div>ul ul { /*서브메뉴 선택시 서브메뉴화면  */
+	display: none;
+	background: white;
+	box-shadow: 1px 1px 5px black;
+}
+
+#modal {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+
+#modal h2 {
+	margin: 0;
+	 
+	 
+}
+
+#modal button {
+	display: inline-block;
+	width: 100px;
+	margin-left: calc(100% - 100px - 10px);
+}
+
+#modal .modal_content {
+	width: 300px;
+	margin: 100px auto;
+	padding: 20px 10px;
+	background: #fff;
+	border: 2px solid #666;
+}
+
+#modal .modal_layer {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: -1;
+}
+
+#dropdown-box {
+	dispaly: none;
+}
+
+body>nav>div>ul>div>ul{
+	background-color : black;
+}
+
+</style>
+
+</head>
+<body>
+	<div id="register">
+		<div class="container"
+			style="width: 100%; padding-top: 10px; border-radius: 22px 22px;">
+			<article class="container bg-light"
+				style="max-width: 640px; border-radius: 10px 10px;">
+				<div class="page-header">
+					<div class="col-md-6 col-md-offset-3">
+						<br>
+						<h3>아이디찾기</h3>
+					</div>
+				</div>
+				<div class="form-group has-feedback row">
+					<label for="inputUserName"
+						class="col-md-3 control-label text-md-right col-form-label">이름
+						<span class="text-danger small">*</span>
+					</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="inputUserName"
+							placeholder="이름" required name="name"> <i
+							class="fa fa-user form-control-feedback pr-4"></i>
+					</div>
+				</div>
+				<div class="form-group has-feedback row">
+					<label for="inputName"
+						class="col-md-3 control-label text-md-right col-form-label">아이디
+						<span class="text-danger small">*</span>
+					</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="inputName"
+							placeholder="아이디" required name="id"> <i
+							class="fa fa-pencil form-control-feedback pr-4"></i>
+					</div>
+				</div>
+				<div class="form-group has-feedback row">
+					<label for="inputPassword"
+						class="col-md-3 control-label text-md-right col-form-label">전화번호
+						<span class="text-danger small">*</span>
+					</label>
+					<div class="col-md-8">
+						<input type="text" class="form-control" id="inputPassword"
+							placeholder="010-xxx-xxxx" required name="tel"> <i
+							class="fa fa-lock form-control-feedback pr-4"></i>
+					</div>
+				</div>
+				
+				<div class="form-group text-center">
+					<button type="submit" id="modal_pw_btn" class="btn btn-primary">
+						비밀번호 찾기<i class="fa fa-check spaceLeft"></i>
+					</button>
+					<br>
+				</div>
+				<br>
+				<br>
+			</article>
+		</div>
+	</div>
+	
+	<!-- 모달 이용한 결과값 출력  -->
+	<div id="modal" style='display: none'>
+		<div id="register">
+			<div class="container"
+				style="width: 100%; padding-top: 10px; border-radius: 22px 22px;">
+				<article class="container bg-light"
+					style="max-width: 640px; border-radius: 10px 10px;">
+					<div class="page-header">
+						<div class="col-md-6 col-md-offset-3">
+							<br>
+							<h3>비밀번호 찾기 결과</h3>
+							<br>
+							<br>
+							<h6>아이디를 찾을 수 없습니다.</h6>
+						</div>
+					</div>
+					<div class="form-group text-center">
+						<button type="button" id="modal_close_btn" onclick="location.href='Index.html' "
+						class="btn btn-primary">닫기</button>
+						<br>
+					</div>
+					<br>
+				</article>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			$("#modal_pw_btn").click(function() {
+				$("#modal").fadeIn();
+			});
+
+			$("#modal_close_btn").click(function() {
+				$("#modal").fadeOut();
+			});
+			
+		});
+	</script>
+</body>
+</html>
